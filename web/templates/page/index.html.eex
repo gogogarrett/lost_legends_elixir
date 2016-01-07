@@ -1,0 +1,11 @@
+<h1>
+  A <span class="monster-name">Monster</span> walks into a bar..
+</h1>
+<p class="monster-desc"></p>
+<p>Health:<span class="monster-health"></span></p>
+
+<button class='attack'>
+  Attack
+</button>
+
+<ul class='combat-area'></ul>
