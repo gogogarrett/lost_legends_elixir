@@ -28,16 +28,11 @@ $('.attack').on('click', event => {
 
 channel.on('attack', payload => {
   $('.combat-area').append(`<br/> Player ${payload.user_id} attacked for ${payload.damage} damage!`)
-
   $('.monster-health').text(payload.monster_health)
 })
 
 channel.on('monster_kill', payload => {
-  $('.combat-area').append(`
-    <br/> Player ${payload.user_id} attacked for ${payload.damage} damage!
-    <br /> AND KILLED THE BOSS
-  `)
-
+  $('.combat-area').append(`<br/> Player ${payload.user_id} KILLED THE BOSS`)
   $('.monster-health').text(payload.monster_health)
 })
 export default socket
