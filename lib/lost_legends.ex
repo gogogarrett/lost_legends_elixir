@@ -11,8 +11,8 @@ defmodule LostLegends do
       supervisor(LostLegends.Endpoint, []),
       # Start the Ecto repository
       supervisor(LostLegends.Repo, []),
-      # Here you could define other workers and supervisors as children
-      # worker(LostLegends.Worker, [arg1, arg2, arg3]),
+      # Starts the Channel persistance monitor
+      worker(LostLegends.BattleChannel.Monitor, [%{}]),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
