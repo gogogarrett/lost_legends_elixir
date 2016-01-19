@@ -4,6 +4,8 @@
 <p class="monster-desc"></p>
 <p>Health:<span class="monster-health"></span></p>
 
+<ul class="players"></ul>
+
 <button class='attack'>
   Attack
 </button>

@@ -9,15 +9,15 @@ defmodule LostLegends.BattleChannel.Monitor do
   # External API
 
   def start_link(initial_state) do
-   GenServer.start_link(__MODULE__, initial_state, name: __MODULE__)
+    GenServer.start_link(__MODULE__, initial_state, name: __MODULE__)
   end
 
   def user_joined(channel, user) do
-   GenServer.call(__MODULE__, {:user_joined, channel, user})
+    GenServer.call(__MODULE__, {:user_joined, channel, user})
   end
 
   def users_in_channel(channel) do
-   GenServer.call(__MODULE__, {:users_in_channel, channel})
+    GenServer.call(__MODULE__, {:users_in_channel, channel})
   end
 
   def user_left(channel, user_id) do

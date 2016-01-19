@@ -2,7 +2,7 @@ defmodule LostLegends.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "rooms:*", LostLegends.RoomChannel
+  channel "battle:*", LostLegends.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
