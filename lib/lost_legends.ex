@@ -13,6 +13,7 @@ defmodule LostLegends do
       supervisor(LostLegends.Repo, []),
       # Starts the Channel persistance monitor
       worker(LostLegends.BattleChannel.Monitor, [%{}]),
+      worker(LostLegends.BattleChannel.StateMachine, [%{}]),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
