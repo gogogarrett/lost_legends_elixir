@@ -33,14 +33,19 @@ defmodule LostLegends.BattleChannel.StateMachine do
     {:reply, {:ok, players}, :waiting, state}
   end
   def waiting({:player_joined, channel, player}, state) do
-    new_state = case Map.get(state, channel) do
+    {next_state, new_state} = case Map.get(state, channel) do
       nil ->
-        Map.put(state, channel, [player])
+        {:waiting, Map.put(state, channel, [player])}
       players ->
         uniq_players = Enum.uniq([player | players])
-        Map.put(state, channel, uniq_players)
+        updated_state = Map.put(state, channel, uniq_players)
+        if Enum.count(uniq_players) == 4 do
+          {:playing, updated_state}
+        else
+          {:waiting, updated_state}
+        end
     end
-    {:next_state, :waiting, new_state}
+    {:next_state, next_state, new_state}
   end
 
   def playing(:get_state, from, state) do
