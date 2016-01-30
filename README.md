@@ -1,19 +1,41 @@
 # LostLegends
 
-To start your Phoenix app:
+A real time multiplayer boss fight.
 
-  1. Install dependencies with `mix deps.get`
-  2. Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  3. Start Phoenix endpoint with `mix phoenix.server`
+Join together with up to 4 players to fight against a random boss with a final fantasy style gameplay.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+## Super awesome sketch
 
-## Learn more
+![lost-legends-sketch](https://cloud.githubusercontent.com/assets/873687/12693230/faa39196-c758-11e5-9d07-de90eaf0d656.png)
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: http://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+
+## Getting Started
+
+- `mix deps.get`
+- `mix ecto.create && mix ecto.migrate`
+- `mix run priv/repo/seeds.exs`
+- `mix phoenix.server`
+- visit [`localhost:4000`](http://localhost:4000) from your browser
+
+## TODO
+
+- [ ] Seed player accounts + use plug/sessions to allow players to play a game
+- [ ] Create a lobby with current battles (waiting for people) or start a new battle
+- [ ] Start game even if there isn't 4 players after an amount of time
+- [ ] randomly select a monster for the battle
+- Game Mechanics
+  - Boss
+    - [ ] Boss attacking random person every (x) seconds
+    - [ ] Boss attacking entire group every (y) seconds
+    - [ ] Boss healing at low health every (z) seconds
+  - Player
+    - [ ] Ability to attack boss every (x) seconds (on a cooldown on frontend+backend)
+    - [ ] Ability to heal self every (y) seconds (on a cooldown on frontend+backend)
+    - [ ] Ability to heal group (z) seconds (on a cooldown on frontend+backend)
+  - [ ] Show all the actions the players make in a `battle log` on the page
+
+## TODO Later
+
+- [ ] Hook up user/player accounts (maybe signup with twitter?)
+- [ ] n `gen_fsm`s per Channel (instead of 1 `gen_fsm` for everything)
