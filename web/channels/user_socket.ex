@@ -5,15 +5,19 @@ defmodule LostLegends.UserSocket do
 
   transport :websocket, Phoenix.Transports.WebSocket
 
-  def connect(_params, socket) do
-    {:ok, assign(socket, :current_user, %{id: random_id, name: "Player"})}
+  @max_age 2 * 7 * 24 * 60 * 60
+
+  def connect(%{"token" => token}, socket) do
+    case Phoenix.Token.verify(socket, "user socket", token, max_age: @max_age) do
+      {:ok, user_id} ->
+        user = LostLegends.Repo.get!(LostLegends.User, user_id)
+        {:ok, assign(socket, :user_id, Integer.to_string user.id)}
+      {:error, _reason} ->
+        :error
+    end
   end
 
-  def id(_socket), do: nil
+  def connect(_params, _socket), do: :error_handler
 
-  defp random_id do
-    {{_, _, _}, {_, _, id}} = :calendar.local_time |>
-                              :calendar.local_time_to_universal_time
-    id
-  end
+  def id(socket), do: "users_socket:#{socket.assigns.user_id}"
 end

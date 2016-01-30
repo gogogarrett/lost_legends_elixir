@@ -3,7 +3,7 @@ import {Socket} from "deps/phoenix/web/static/js/phoenix"
 function updatePlayerList(players = []) {
   $('.players').empty()
   players.forEach(player => {
-    $('.players').append(`<li>${player.id} : ${player.name}</li>`)
+    $('.players').append(`<li>${player.id} : ${player.username}</li>`)
   })
 }
 function updateStateName(stateName) {
