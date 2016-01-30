@@ -77,8 +77,7 @@ defmodule LostLegends.BattleChannel.StateMachine do
     State: - waiting
     :player_left event
 
-    This will add a player to the channel map. When 4 uniq players are in the same channel
-    we transition to the `playing` state. If there is less than 4 players, we stay in the `waiting` state.
+    This will remove a player from the channel map. We stay in the `waiting` state.
   """
   def waiting({:player_left, channel, player}, from, state) do
     new_state = case Map.get(state, channel) do
