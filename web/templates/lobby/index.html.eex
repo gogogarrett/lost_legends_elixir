@@ -1,0 +1,6 @@
+<h1>Lobby</h1>
+
+Welcome.
+
+<%= link "Battle!", to: battle_path(@conn, :show, 1) %>
+

@@ -7,6 +7,7 @@ defmodule LostLegends.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug LostLegends.Auth, repo: LostLegends.Repo
   end
 
   pipeline :api do
@@ -14,13 +15,17 @@ defmodule LostLegends.Router do
   end
 
   scope "/", LostLegends do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :browser
 
     get "/", PageController, :index
+    resources "/users", UserController, except: [:index]
+    resources "/sessions", SessionController, only: [:new, :create, :delete]
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", LostLegends do
-  #   pipe_through :api
-  # end
+  scope "/lobby", LostLegends do
+    pipe_through [:browser, :authenticate_user]
+
+    resources "/", LobbyController, only: [:index]
+    resources "/battles", BattleController, only: [:show]
+  end
 end
