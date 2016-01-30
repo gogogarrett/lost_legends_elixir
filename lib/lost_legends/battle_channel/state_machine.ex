@@ -93,10 +93,22 @@ defmodule LostLegends.BattleChannel.StateMachine do
     {:reply, new_state, :waiting, new_state}
   end
 
+  @doc """
+    State: - playing
+    :get_state event
+
+    This will return the current state and the current state
+  """
   def playing(:get_state, from, state) do
     {:reply, {:playing, state}, :playing, state}
   end
 
+  @doc """
+    State: - playing
+    :get_players event
+
+    This will return the current players in the state for a given channel
+  """
   def playing({:get_players, channel}, from, state) do
     players = list_players(state, channel)
     {:reply, {:ok, players}, :playing, state}
