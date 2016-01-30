@@ -1,14 +1,7 @@
-<h1>
-  A <span class="monster-name">Monster</span> walks into a bar..
-</h1>
-<p class="monster-desc"></p>
-<p>Health:<span class="monster-health"></span></p>
+<h1>Lost Legends</h1>
 
-<span class="state-name"></span>
-<ul class="players"></ul>
-
-<button class='attack'>
-  Attack
-</button>
-
-<ul class='combat-area'></ul>
+<p>
+  Welcome, please
+  <%= link "register", to: user_path(@conn, :new) %> or
+  <%= link "login", to: session_path(@conn, :new) %> to get started!
+</p>

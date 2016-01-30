@@ -1,0 +1,7 @@
+<h2>Show user</h2>
+
+<ul>
+  <li><%= @user.username %></li>
+</ul>
+
+<%= link "Edit", to: user_path(@conn, :edit, @user) %>
