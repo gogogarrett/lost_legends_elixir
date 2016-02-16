@@ -5,33 +5,35 @@ defmodule LostLegends.BattleChannel do
   alias LostLegends.Battle.{Supervisor, StateMachine}
 
   def join("battles:" <> battle_id = channel_name, payload, socket) do
-    user = Repo.get(User, socket.assigns.user_id)
-    StateMachine.player_joined(channel_name, user)
-    # send self, {:after_join, channel_name}
+    Supervisor.start_child(battle_id)
 
-    {state_name, state} = StateMachine.get_state
-    players = state[channel_name]
-              |> Phoenix.View.render_many(LostLegends.UserView, "user.json")
+    user = Repo.get(User, socket.assigns.user_id)
+    StateMachine.player_joined(battle_id, user)
+
+    send self, {:after_join, battle_id}
+
+    {state_name, players} = StateMachine.get_state(battle_id)
+    players = Phoenix.View.render_many(players, LostLegends.UserView, "user.json")
 
     {:ok, %{players: players, state_name: state_name}, assign(socket, :battle_id, battle_id)}
   end
 
-  def handle_info({:after_join, channel_name}, socket) do
-    {state_name, state} = StateMachine.get_state
-    players = state[channel_name]
+  def handle_info({:after_join, battle_id}, socket) do
+    players = StateMachine.get_players(battle_id)
+              |> Phoenix.View.render_many(LostLegends.UserView, "user.json")
     broadcast! socket, "player:joined", %{players: players}
 
     {:noreply, socket}
   end
 
   def terminate(_reason, socket) do
-    channel_name = "battles:#{socket.assigns.battle_id}"
+    battle_id = socket.assigns.battle_id
 
     user = Repo.get(User, socket.assigns.user_id)
-    StateMachine.player_left(channel_name, user)
+    StateMachine.player_left(battle_id, user)
 
-    {_, state} = StateMachine.get_state
-    players = state[channel_name]
+    players = StateMachine.get_players(battle_id)
+              |> Phoenix.View.render_many(LostLegends.UserView, "user.json")
 
     broadcast! socket, "player:left", %{players: players}
 
