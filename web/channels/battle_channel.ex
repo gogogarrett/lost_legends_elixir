@@ -2,7 +2,7 @@ defmodule LostLegends.BattleChannel do
   use LostLegends.Web, :channel
 
   alias LostLegends.{Repo, User, Monster}
-  alias LostLegends.BattleChannel.StateMachine
+  alias LostLegends.Battle.{Supervisor, StateMachine}
 
   def join("battles:" <> battle_id = channel_name, payload, socket) do
     user = Repo.get(User, socket.assigns.user_id)
