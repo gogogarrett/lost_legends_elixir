@@ -11,9 +11,9 @@ defmodule LostLegends do
       supervisor(LostLegends.Endpoint, []),
       # Start the Ecto repository
       supervisor(LostLegends.Repo, []),
-      # Starts the Channel persistance monitor
-      worker(LostLegends.BattleChannel.Monitor, [%{}]),
-      worker(LostLegends.BattleChannel.StateMachine, [%{}]),
+
+      # Supervisor for dynamic Battle.StateMachines
+      supervisor(LostLegends.Battle.Supervisor, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
