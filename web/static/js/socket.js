@@ -7,7 +7,7 @@ function updatePlayerList(players = []) {
   })
 }
 function updateStateName(stateName) {
-  $('.state-name').text(stateName);
+  $('.state-name').text(stateName)
 }
 
 let socket = new Socket("/socket", {
@@ -21,8 +21,8 @@ channel.join()
   .receive("ok", resp => {
     console.log("Joined successfully", resp)
 
-    updateStateName(resp.state_name);
-    updatePlayerList(resp.players);
+    updateStateName(resp.state_name)
+    updatePlayerList(resp.players)
   })
   .receive("error", resp => {
     console.log("Unable to join", resp)
@@ -32,7 +32,7 @@ channel.on('player:joined', payload => { updatePlayerList(payload.players) })
 channel.on('player:left',   payload => { updatePlayerList(payload.players) })
 
 channel.on('state_changed', payload => {
-  updateStateName(payload.state);
+  updateStateName(payload.state)
 })
 
 export default socket
